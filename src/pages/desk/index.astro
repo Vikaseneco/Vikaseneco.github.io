@@ -6,34 +6,34 @@ import { url } from '../../lib/url';
 
 <Base
   title="Practice desk"
-  description="A one-page practice note for a single change. Record what you saw, what you left, and whether you would proceed, ask, or hold."
+  description="A one-page note for one AI automation trial. Record the path, the trace, and whether you would proceed, ask, or hold."
 >
   <PageHead
-    kicker="Practice desk"
-    title="One change. One page."
-    lede="Write the pass you are actually in. Proceed means the evidence is enough for this pass. Ask means a person should answer a named question. Hold means something you saw should stop the release."
+    kicker="Pilot desk"
+    title="One path. One page."
+    lede="Write the trial you are actually in. Proceed means this path earned a wider trial. Ask means a named count or question is missing. Hold means a repair changed the check, or the numbers are not yours."
   />
 
   <div class="desk-grid">
     <form id="desk-form" class="fields" autocomplete="off">
       <label>
-        <span>Change</span>
+        <span>Path</span>
         <input name="change" type="text" maxlength="160" />
       </label>
       <label>
-        <span>What changed</span>
+        <span>What the agent did</span>
         <textarea name="changed" rows="4"></textarea>
       </label>
       <label>
-        <span>Who it touches</span>
+        <span>What the script now checks</span>
         <textarea name="who" rows="3"></textarea>
       </label>
       <label>
-        <span>Left for later</span>
+        <span>What a person must still own</span>
         <textarea name="later" rows="3"></textarea>
       </label>
       <label>
-        <span>What I saw</span>
+        <span>What the trace showed</span>
         <textarea name="saw" rows="4"></textarea>
       </label>
       <label>
@@ -46,7 +46,7 @@ import { url } from '../../lib/url';
         <label class="choice"><input type="radio" name="decision" value="Ask" /> Ask</label>
         <label class="choice"><input type="radio" name="decision" value="Hold" /> Hold</label>
       </fieldset>
-      <p class="hint">Proceed is not a claim that the product is finished. It is a claim about this pass.</p>
+      <p class="hint">Proceed is not a claim that every suite should be generated. It is a claim about this path.</p>
       <label>
         <span>Why this decision</span>
         <textarea name="why" rows="3"></textarea>
@@ -62,37 +62,37 @@ import { url } from '../../lib/url';
 
     <aside class="sheet" aria-live="polite">
       <p class="kicker">Composed note</p>
-      <h2>Practice note</h2>
+      <h2>Pilot note</h2>
       <pre id="note"></pre>
     </aside>
   </div>
 
   <p class="post-foot">
-    The method behind the page is the <a href={url('skills#release-judgment')}>release judgment</a> skill.
-    The five lines in the <a href={url('blog/the-notebook-before-the-suite')}>notebook note</a> are the shorter cousin of this page.
+    The method behind the page is the <a href={url('skills#pilot-gate')}>pilot gate</a> skill.
+    The lesson on counting a trial is <a href={url('blog/start-with-one-job')}>start with one job</a>.
   </p>
   <noscript>
-    <p>Without JavaScript, copy these headings into your own notes: Change, What changed, Who it touches, Left for later, What I saw, What I still doubt, Decision, Why.</p>
+    <p>Without JavaScript, copy these headings into your own notes: Path, What the agent did, What the script now checks, What a person must still own, What the trace showed, What I still doubt, Decision, Why.</p>
   </noscript>
 </Base>
 
 <script>
-  const STORAGE_KEY = 'vy-practice-desk-v1';
+  const STORAGE_KEY = 'vy-ai-automation-desk-v1';
   const form = document.querySelector<HTMLFormElement>('#desk-form');
   const note = document.querySelector<HTMLElement>('#note');
   const status = document.querySelector<HTMLElement>('#desk-status');
   const fields = ['change', 'changed', 'who', 'later', 'saw', 'doubt', 'why'] as const;
 
   const example: Record<(typeof fields)[number] | 'decision', string> = {
-    change: 'Save a card for later',
+    change: 'Sign-in locator repair, three weeks',
     changed:
-      'A returning customer can store a card and choose it at the next checkout. The shop does not charge the card when it is saved.',
-    who: 'A customer with an account, and the support person who will be asked why a charge appeared.',
-    later: 'Expired cards, wallets, and more than one saved card.',
-    saw: 'Saving the card showed it on the account page after refresh. A payment request was not sent at save time.',
-    doubt: 'The ticket does not say what the customer sees if the saved card is declined later.',
-    why: 'The happy path is visible. The decline path is not stated, so I would not call the change ready.',
-    decision: 'Ask',
+      'An agent proposed new locators when the sign-in script could not find the button. It was not allowed to edit the check or skip the test.',
+    who: 'The script still checks that the next page shows the name Ada. Two of twelve diffs also changed that expected text.',
+    later: 'Checkout, payments, and any path where a wrong click spends money.',
+    saw: 'Twelve locator diffs. Ten kept the check. Two replaced the expected name with the word Welcome. Review hours were not counted.',
+    doubt: 'I do not yet know whether those two weakened checks hid a real sign-in failure.',
+    why: 'The fence was crossed twice, and the hours are not counted. I would not widen the trial on a borrowed percentage.',
+    decision: 'Hold',
   };
 
   function valueOf(name: string) {
@@ -110,14 +110,14 @@ import { url } from '../../lib/url';
   function compose() {
     const decision = valueOf('decision') || 'Not chosen';
     return [
-      'PRACTICE NOTE',
+      'PILOT NOTE',
       'Vikas Yadav · SuperIntelligence Quality Assurance',
       '',
-      `Change: ${fill('change')}`,
-      `What changed: ${fill('changed')}`,
-      `Who it touches: ${fill('who')}`,
-      `Left for later: ${fill('later')}`,
-      `What I saw: ${fill('saw')}`,
+      `Path: ${fill('change')}`,
+      `What the agent did: ${fill('changed')}`,
+      `What the script now checks: ${fill('who')}`,
+      `What a person must still own: ${fill('later')}`,
+      `What the trace showed: ${fill('saw')}`,
       `What I still doubt: ${fill('doubt')}`,
       `Decision: ${decision}`,
       `Why: ${fill('why')}`,
@@ -168,7 +168,7 @@ import { url } from '../../lib/url';
     render();
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(example));
-      say('Example loaded and saved in this browser. Replace it with your own change.');
+      say('Example loaded and saved in this browser. Replace it with your own path.');
     } catch {
       say('Example loaded. This browser would not store it.');
     }

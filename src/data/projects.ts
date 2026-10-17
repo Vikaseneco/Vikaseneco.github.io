@@ -9,48 +9,39 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: 'Practice desk',
-    year: '2026',
-    kind: 'Page',
-    summary:
-      'A single page for one change. You write what moved, who it touches, what you left, what you saw, and whether you would proceed, ask, or hold. The note stays in the browser you are using.',
-    href: 'desk',
-    link: 'Open the desk',
-  },
-  {
-    name: 'Five-line note',
+    name: 'Plain-language case',
     year: '2026',
     kind: 'Practice',
     summary:
-      'Five lines written before a suite or a model gets the first word: the change, who it touches, what you will not test, what makes you stop, and where the evidence lives.',
-    href: 'blog/the-notebook-before-the-suite',
-    link: 'Read the note',
+      'A case written as short steps and Check lines, so a browser runner can attempt it and a person can still see what was asked. The agent run is a rehearsal. The exported script is what a person reviews.',
+    href: 'blog/write-the-case-then-run-it',
+    link: 'Read the lesson',
   },
   {
-    name: 'Three marks',
+    name: 'Locator gate',
     year: '2026',
     kind: 'Habit',
     summary:
-      'A way to review model-written tests. Each claim is grounded, borrowed, or invented. A case without an oracle does not go into a suite.',
-    href: 'blog/fluency-is-not-coverage',
-    link: 'Read the note',
+      'A repair may change how a script finds a control. It may not change the expected result, skip the test, or click through a payment. The old locator and the new one stay in the note.',
+    href: 'blog/repair-the-locator-not-the-rule',
+    link: 'Read the lesson',
   },
   {
-    name: 'Chain lessons',
+    name: 'One job first',
     year: '2026',
-    kind: 'Lessons',
+    kind: 'Trial',
     summary:
-      'Three notes in plain English on a tool-calling chain: the loop, the wrong path behind a right sentence, and a scripted brain that does not pretend to be a live model. Each one has a diagram and a practice.',
-    href: 'blog/a-chain-is-a-loop',
-    link: 'Start the lessons',
+      'A way to start AI in test automation without three agents on day one. Pick draft, run-and-repair, or explain. Name the person who reviews the diff, and the signal that stops the trial.',
+    href: 'blog/start-with-one-job',
+    link: 'Read the lesson',
   },
   {
-    name: 'Margin decision',
+    name: 'Pilot desk',
     year: '2026',
-    kind: 'Format',
+    kind: 'Page',
     summary:
-      'A release comment small enough to sit in the margin: what is known, what was not tried, the doubt, and a choice of Proceed, Ask, or Hold.',
-    href: 'skills#release-judgment',
-    link: 'Open the skill',
+      'A single page for one trial path. You write what the agent did, what the script now checks, what a person must still own, and whether you would proceed, ask, or hold. The note stays in the browser.',
+    href: 'desk',
+    link: 'Open the desk',
   },
 ];

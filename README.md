@@ -1,8 +1,8 @@
 # Vikas Yadav · SuperIntelligence Quality Assurance
 
-A static site for a public testing desk: a home page that starts from the task, a blog, a small prompt starter, QA skills, projects, and a practice desk.
+A static site about AI in test automation: a home page that starts from the task, lessons in plain English, a small prompt starter, skills, practices, and a pilot desk.
 
-The pages are original notes. Prompts are starters. The practice desk stores its note only in the browser.
+The pages are original notes. Prompts are starters. The pilot desk stores its note only in the browser.
 
 ## Run locally
 

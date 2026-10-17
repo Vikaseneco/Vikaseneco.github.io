@@ -9,233 +9,179 @@ export type Prompt = {
 
 export const prompts: Prompt[] = [
   {
-    id: 'change-risk-brief',
-    title: 'Read the change',
-    intent: 'Turn a ticket or a diff into a short risk note.',
-    bring: 'The change itself. Not a guessed requirement.',
-    check: 'Each risk names something you could observe. Silence in the source stays written as “Not in source”.',
-    text: `You are helping a person test one software change. Use only the source below. If a fact is not in the source, write "Not in source". Do not invent product rules, numbers, or messages.
+    id: 'failure-note',
+    title: 'Read a failed run',
+    intent: 'Sort a red automation run before an agent edits it.',
+    bring: 'The failing step, the error, and what the test was supposed to check.',
+    check: 'The note names one failure type. It does not tell a healer to “fix the product”.',
+    text: `You are helping a person read one failed automated test. Use only the source below. If a fact is not in the source, write "Not in source". Do not invent locators, pages, or product rules.
 
 SOURCE:
-[paste the ticket, the requirement, or a short description of the diff]
+[paste the failing step, the error or screenshot note, and the check the test was meant to make]
 
 Answer in this shape:
 
-Change
-Two sentences in plain language.
+Step
+One sentence: what the test tried to do.
 
-Who it touches
-Name a person or a downstream system. Do not stop at the word "users".
+Type
+One of: locator, product behaviour, or broken run. Say why.
 
-Risks
-Three risks. For each one, say what you would look at to notice it.
+Allowed edit
+The one change an agent may propose. If the type is product behaviour, write "No automatic edit".
 
-Left for later
-What this pass will not cover.
+Do not touch
+The check, the data, or the page that must stay as written.
 
 Question for a person
-One question that should be answered before testing starts.`,
+One question, or "None".`,
   },
   {
-    id: 'session-charter',
-    title: 'Plan the session',
-    intent: 'Draft a charter for one time-boxed pass.',
-    bring: 'The change, and any risk note you already trust.',
-    check: 'The mission is one sentence. Nothing in the charter depends on a rule you did not supply.',
-    text: `Write a test session charter for one change. A charter is a short plan for a time-boxed session, not a strategy document and not a list of scripts.
+    id: 'plain-case',
+    title: 'Write a plain-language case',
+    intent: 'Draft a case a person can read and a browser runner can attempt.',
+    bring: 'The flow and the outcome you already trust. Not a guessed rule.',
+    check: 'Every check starts with "Check:". No step pays, deletes, or skips a check unless the source said so.',
+    text: `Write a plain-language test case for one flow. A later tool may drive a browser from these lines. A person must still be able to read them. Use only the source. If a fact is missing, write "Not in source". Do not invent users, prices, roles, or messages.
 
 SOURCE:
-[paste the change and any risk note you already trust]
+[paste the flow, the safe test data, and the outcome you care about]
 
 Produce:
 
-Mission
-One sentence: what you are trying to learn.
-
-Time box
-Suggest a length only if the source implies one. Otherwise write "Choose a length".
+Title
 
 Setup
-What must be true before the session starts.
-
-First moves
-Four things to try, in order, tied to the source.
-
-Oracles
-What you will compare against. If the source does not say, write "Not in source".
-
-Stop
-The condition that ends the session early.
-
-Out of scope
-What you will not chase this time.`,
-  },
-  {
-    id: 'defect-brief',
-    title: 'Describe a defect',
-    intent: 'Make notes into a brief someone else can follow.',
-    bring: 'What you did, what you saw, and any capture you have.',
-    check: 'You can perform the steps from the brief alone. No step was added.',
-    text: `Turn the notes below into a defect brief a teammate can act on. Do not add steps that were not observed. If impact is unclear, write "Impact not stated" instead of guessing severity.
-
-NOTES:
-[paste what you did, what you saw, and any evidence]
-
-Write:
-
-Title
-A sentence that names the failure.
-
-Environment
-Only details present in the notes.
+Only what must be true before the first step.
 
 Steps
-Numbered, and only steps that were actually taken.
+One action per line: open, type, choose, or click.
 
-Seen
-What happened.
+Checks
+Each line starts with "Check:". A check names what a person would look at.
 
-Expected
-What the notes say should have happened. If they do not say, write "Expected result not stated".
+Do not
+What the runner must not do.
 
-Impact
-Who is affected and how, from the notes only.
-
-Evidence
-What was captured. If nothing was captured, say so.
-
-Open question
-One thing a person still needs to confirm.`,
+Out of scope
+What this case will not try.`,
   },
   {
-    id: 'release-margin',
-    title: 'Judge a release',
-    intent: 'Sort evidence before a person chooses Proceed, Ask, or Hold.',
-    bring: 'Scope, what was tried, what failed, and what was not tried.',
-    check: 'The choice follows from the unknowns. A green check is not proof of something that was not tested.',
-    text: `You are helping a person decide whether one change is ready to go further. You do not make the decision. You sort the evidence.
-
-MATERIAL:
-[paste the scope, what was tried, what passed, what failed, and what was not tried]
-
-Write:
-
-Known
-Facts the material supports.
-
-Unknown
-Things the material does not settle.
-
-Tried
-What was actually exercised.
-
-Not tried
-What was left out.
-
-Doubts
-The doubts a teammate should see before agreeing.
-
-A choice a person could defend
-Offer one of: Proceed, Ask, or Hold. Then say which missing fact would change it.
-
-Do not treat a passing check as proof of something that was not tested.`,
-  },
-  {
-    id: 'model-answer-audit',
-    title: 'Review a model answer',
-    intent: 'Mark a drafted list before anyone treats it as coverage.',
-    bring: 'The source you gave the model, and the answer unchanged.',
-    check: 'Invented items stay marked. They are not rewritten into smoother cases.',
-    text: `Review the model answer below against the source. Mark every concrete claim.
+    id: 'locator-repair',
+    title: 'Review a repaired locator',
+    intent: 'Decide whether a new locator still matches the old intent.',
+    bring: 'The intent, the old locator, the proposed locator, and what the check still says.',
+    check: 'The note says accept or reject. A change to the expected result is a reject.',
+    text: `Review a proposed locator repair. The intent of the step must stay the same. Use only the source. If a fact is missing, write "Not in source".
 
 SOURCE:
-[paste the requirement or change]
+[paste the step intent, the old locator, the new locator, and the check that must remain]
 
-MODEL ANSWER:
-[paste the model's tests, risks, or summary]
+Answer:
 
-For each claim, use one mark:
+Intent
+One sentence.
 
-- Grounded. The source states it. Quote the short phrase you used.
-- Borrowed. A familiar testing idea the source did not require. Say whether you would keep it.
-- Invented. The answer added a rule, number, message, or limit the source does not contain.
+What changed
+Old locator and new locator, in the source's words.
+
+What stayed
+The check and the data. If either changed, say so.
+
+Verdict
+Accept or reject.
+
+Reason
+One or two sentences. Reject a locator that is broader than the intent, a click by screen position, a deleted assertion, or a skipped test.`,
+  },
+  {
+    id: 'script-audit',
+    title: 'Judge a generated script',
+    intent: 'Mark an agent-written automation script before it joins a suite.',
+    bring: 'The case or ticket you supplied, and the script unchanged.',
+    check: 'Invented rules stay marked. A check that cannot fail is named.',
+    text: `Review an automated test drafted by a model. Use only the source and the script. If the script adds a rule the source does not contain, mark it invented. Do not rewrite the script into a cleaner version of those inventions.
+
+SOURCE:
+[paste the case, ticket, or requirement]
+
+SCRIPT:
+[paste the generated test]
+
+For each check, use one mark:
+
+- Grounded. The source states it. Quote a short phrase.
+- Borrowed. A familiar automation idea the source did not require.
+- Invented. A number, message, role, timeout, or rule the source does not contain.
 
 Then add:
 
-Oracles missing
-Claims that cannot fail, because nobody could tell success from failure.
+Cannot fail
+Steps or checks with no way to see success versus failure.
 
-Questions for a person
-Only the questions needed before anyone turns an invented claim into a script.
-
-Do not rewrite the model answer into a cleaner version of the same inventions.`,
-  },
-  {
-    id: 'regression-slice',
-    title: 'Choose a regression slice',
-    intent: 'Cut the checks that belong to this change.',
-    bring: 'The change, the areas it touches, and the checks you already have.',
-    check: 'Each included check names an oracle. Nothing is in the slice only because it is easy to run.',
-    text: `Choose a small regression slice for one change. A slice is the set of checks that belong to this change, not the whole suite.
-
-SOURCE:
-[paste the change, the areas it touches, and any checks you already have]
-
-Write:
-
-In the slice
-Up to seven checks. For each, say the risk it addresses and the oracle.
-
-Held back
-Checks that may be useful later but do not belong to this change. Say why they wait.
-
-Missing oracle
-Any check you cannot yet judge pass or fail.
-
-Not a substitute
-One sentence on what this slice does not prove.
-
-Prefer fewer checks with a clear oracle over a long list.`,
-  },
-  {
-    id: 'chain-review',
-    title: 'Review a tool chain',
-    intent: 'Turn a tool trace into a path note a person can learn from.',
-    bring: 'The customer’s request, the trace, and any rule you already trust.',
-    check: 'The note shows the path before the sentence. A scripted run is not described as a live model. Missing rules stay “Not in source”.',
-    text: `You are helping a person review one tool-calling chain. Use only the source below. If a fact is not in the source, write "Not in source". Do not invent tools, ids, limits, or policy rules.
-
-A chain is a loop: decide, use a tool, read the result, decide again. The final sentence is a claim. The trace is the evidence.
-
-SOURCE:
-[paste the customer's request, the trace of tool calls, and any rule you already trust]
-
-Say whether this run used a scripted brain, a saved reply, or a live model. If that is not in the source, write "Not in source".
-
-Answer in this shape:
-
-Job
-One sentence a customer could follow.
-
-Path
-The steps in order. Keep errors. Do not hide a failed try.
-
-Gate
-The check that had to pass before data or money changed. Quote it, or write "No gate in the trace".
-
-Values that had to be passed
-For each later step that needed an earlier result, say what was passed. If the tool received the customer's raw sentence instead of an id, say so.
-
-Order that can swap
-Lookups that do not feed each other and do not change anything. Do not call those a defect.
-
-Claim you may make
-One or two sentences. A scripted run may say the loop obeyed the script. It may not say the assistant understands the customer.
-
-Claim you must not make
-The sentence in the trace that goes beyond the path.
+May enter the suite
+Yes or no. Yes only if every invented check is removed or confirmed by a person.
 
 Question for a person
-One question that should be answered before anyone calls this chain safe.`,
+Only the questions needed before the script is committed.`,
+  },
+  {
+    id: 'one-job',
+    title: 'Pick the first agent job',
+    intent: 'Choose one AI automation job and write what it must not change.',
+    bring: 'The pain you can point at, and the suite you already have.',
+    check: 'Exactly one job is chosen. The forbidden list is concrete.',
+    text: `Help a team choose one first job for AI in test automation. The jobs are: draft a case or script, run a case and repair a locator, or explain a failed run. Pick one. Use only the source. Do not invent savings, percentages, or tools the source does not name.
+
+SOURCE:
+[paste the current pain, the suite you trust, and who can review a diff]
+
+Answer:
+
+Pain
+One sentence.
+
+Job
+Exactly one of: draft, run-and-repair, explain.
+
+Allowed to change
+
+Forbidden to change
+Include the expected result, skipped tests, and any payment or delete step unless the source already allows them.
+
+Reviewer
+Who reads the diff before it is kept. If unknown, write "Name a person".
+
+Stop the trial if
+One observable signal.`,
+  },
+  {
+    id: 'pilot-note',
+    title: 'Judge a pilot',
+    intent: 'Turn a small AI-automation trial into a keep, ask, or stop decision.',
+    bring: 'The path, the time box, and the counts you have. Not a slide of promised savings.',
+    check: 'Every number came from the source. Missing counts stay "Not counted".',
+    text: `Judge one pilot of AI in test automation. Do not widen the claim to the whole product. Use only the source. If a number was not counted, write "Not counted". Do not borrow a percentage from a blog or a vendor.
+
+SOURCE:
+[paste the path, what the agent was allowed to change, the time box, and any counts]
+
+Answer:
+
+Path and time box
+
+What the agent was allowed to change
+
+Counts
+Confirmed defects, false greens, review hours, and run cost. Use "Not counted" where needed.
+
+Compared with the old suite
+Only if the source has that comparison.
+
+Decision
+Proceed, Ask, or Hold. Proceed means widen this kind of trial. Hold means stop or narrow it.
+
+Why
+The fact that would change the decision.`,
   },
 ];
