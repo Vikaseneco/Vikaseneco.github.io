@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { projects } from '../../data/projects';
+import { url } from '../../lib/url';
+---
+
+<Base
+  title="Projects"
+  description="Practices kept on this site: a practice desk, a five-line note, three marks for model output, and a margin decision for releases."
+>
+  <PageHead
+    kicker="Projects"
+    title="Practices, not packages."
+    lede="These are ways of working that live on this site. Nothing here is a download, and nothing asks you to install a tool before you can try the idea."
+  />
+  {
+    projects.map((project) => (
+      <article class="project">
+        <p class="project-kind">
+          {project.year} · {project.kind}
+        </p>
+        <h2>{project.name}</h2>
+        <p>{project.summary}</p>
+        <p class="post-foot">
+          <a href={url(project.href)}>{project.link}</a>
+        </p>
+      </article>
+    ))
+  }
+</Base>

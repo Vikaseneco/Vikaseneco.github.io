@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { formatDate } from '../../lib/url';
+
+type NoteModule = {
+  url: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    date: string | Date;
+    minutes: number;
+  };
+};
+
+const notes = Object.values(import.meta.glob<NoteModule>('./*.md', { eager: true })).sort(
+  (a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date),
+);
+---
+
+<Base
+  title="Blog"
+  description="Notes on writing a change down before the tools, and on reading model-written tests without mistaking fluency for coverage."
+>
+  <PageHead
+    kicker="Blog"
+    title="Field notes"
+    lede="Short essays from the desk. They are about reading a change carefully before a suite, a script, or a model gets to decide what it means."
+  />
+  <ul class="note-list">
+    {
+      notes.map((note) => (
+        <li>
+          <a href={note.url}>
+            <time datetime={new Date(note.frontmatter.date).toISOString().slice(0, 10)}>
+              {formatDate(note.frontmatter.date)} · {note.frontmatter.minutes} min read
+            </time>
+            <strong>{note.frontmatter.title}</strong>
+            <span>{note.frontmatter.description}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { skills } from '../../data/skills';
+import { url } from '../../lib/url';
+---
+
+<Base
+  title="QA skills"
+  description="Six short methods for risk reading, session charters, defect briefs, release judgment, model-output review, and regression slices."
+>
+  <PageHead
+    kicker="QA skills"
+    title="Methods you can finish."
+    lede="A skill here is a short method for one task. Bring the inputs, follow the steps, and leave with something a teammate can read. If the source is silent, write that down."
+  />
+
+  <div class="layout">
+    <nav class="side-nav" aria-label="Skills">
+      {skills.map((skill) => <a href={`#${skill.id}`}>{skill.title}</a>)}
+    </nav>
+    <div>
+      {
+        skills.map((skill) => (
+          <article class="skill" id={skill.id}>
+            <h2>{skill.title}</h2>
+            <p>{skill.summary}</p>
+            <h3>When</h3>
+            <p>{skill.when}</p>
+            <h3>Bring</h3>
+            <ul>
+              {skill.bring.map((item) => <li>{item}</li>)}
+            </ul>
+            <h3>Do</h3>
+            <ol>
+              {skill.steps.map((step) => <li>{step}</li>)}
+            </ol>
+            <h3>Leave with</h3>
+            <ul>
+              {skill.leave.map((item) => <li>{item}</li>)}
+            </ul>
+            <p class="caution">{skill.caution}</p>
+            <p class="post-foot">
+              {skill.prompt && <a href={url(`prompts#${skill.prompt}`)}>Related prompt</a>}
+              {skill.prompt && skill.desk && ' · '}
+              {skill.desk && <a href={url('desk')}>Practice on the desk</a>}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Base>

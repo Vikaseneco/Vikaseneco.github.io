@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import { tasks } from '../data/tasks';
+import { formatDate, url } from '../lib/url';
+
+type NoteModule = {
+  url: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    date: string | Date;
+    minutes: number;
+  };
+};
+
+const notes = Object.values(import.meta.glob<NoteModule>('./blog/*.md', { eager: true })).sort(
+  (a, b) => +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date),
+);
+
+const paths = [
+  {
+    href: url('prompts'),
+    kicker: 'Prompts',
+    title: 'Paste a starter',
+    line: 'Six prompts. Bring your own source, then read the answer against the check.',
+  },
+  {
+    href: url('skills'),
+    kicker: 'Skills',
+    title: 'Follow a method',
+    line: 'What to bring, what to do, and what you should be able to leave with.',
+  },
+  {
+    href: url('projects'),
+    kicker: 'Projects',
+    title: 'See the practices',
+    line: 'The desk, the five-line note, the three marks, and the margin decision.',
+  },
+  {
+    href: url('desk'),
+    kicker: 'Desk',
+    title: 'Write one change',
+    line: 'A blank page for a single pass. The note stays in this browser.',
+  },
+];
+---
+
+<Base
+  home
+  title="Home"
+  description="A public desk for testing work by Vikas Yadav. Start from the task, then open a skill, a prompt, or the practice page."
+>
+  <section class="opening">
+    <div>
+      <p class="kicker">Start here</p>
+      <h1>Begin with the question <em>already on the desk.</em></h1>
+      <p class="lede">
+        A small public desk for testing work. Pick the task in front of you, then open a skill, a prompt, or a blank practice page. The writing stays short. A person still decides what is true.
+      </p>
+    </div>
+    <aside class="margin-note">
+      <p class="kicker">Field rule</p>
+      <p>Tools can speed up the writing. They do not take the decision.</p>
+    </aside>
+  </section>
+
+  <section aria-labelledby="tasks-heading">
+    <div class="section-head">
+      <h2 id="tasks-heading">What are you trying to finish?</h2>
+      <p>Six ways in. Choose the closest one.</p>
+    </div>
+    <ol class="tasks">
+      {
+        tasks.map((task) => (
+          <li>
+            <a href={url(task.href)}>
+              <span class="num">{task.n}</span>
+              <span>
+                <strong>{task.title}</strong>
+                <span class="task-line">{task.line}</span>
+              </span>
+              <span class="go">{task.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <div class="split band">
+    <section aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Recent notes</h2>
+      <ul class="note-list">
+        {
+          notes.map((note) => (
+            <li>
+              <a href={note.url}>
+                <time datetime={new Date(note.frontmatter.date).toISOString().slice(0, 10)}>
+                  {formatDate(note.frontmatter.date)}
+                </time>
+                <strong>{note.frontmatter.title}</strong>
+                <span>{note.frontmatter.description}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section aria-labelledby="paths-heading">
+      <h2 id="paths-heading">If you already know where to look</h2>
+      <ul class="path-list">
+        {
+          paths.map((path) => (
+            <li>
+              <a href={path.href}>
+                <span class="path-kicker">{path.kicker}</span>
+                <strong>{path.title}</strong>
+                <p>{path.line}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>

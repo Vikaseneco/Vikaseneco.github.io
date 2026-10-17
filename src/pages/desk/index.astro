@@ -1,0 +1,215 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { url } from '../../lib/url';
+---
+
+<Base
+  title="Practice desk"
+  description="A one-page practice note for a single change. Record what you saw, what you left, and whether you would proceed, ask, or hold."
+>
+  <PageHead
+    kicker="Practice desk"
+    title="One change. One page."
+    lede="Write the pass you are actually in. Proceed means the evidence is enough for this pass. Ask means a person should answer a named question. Hold means something you saw should stop the release."
+  />
+
+  <div class="desk-grid">
+    <form id="desk-form" class="fields" autocomplete="off">
+      <label>
+        <span>Change</span>
+        <input name="change" type="text" maxlength="160" />
+      </label>
+      <label>
+        <span>What changed</span>
+        <textarea name="changed" rows="4"></textarea>
+      </label>
+      <label>
+        <span>Who it touches</span>
+        <textarea name="who" rows="3"></textarea>
+      </label>
+      <label>
+        <span>Left for later</span>
+        <textarea name="later" rows="3"></textarea>
+      </label>
+      <label>
+        <span>What I saw</span>
+        <textarea name="saw" rows="4"></textarea>
+      </label>
+      <label>
+        <span>What I still doubt</span>
+        <textarea name="doubt" rows="3"></textarea>
+      </label>
+      <fieldset class="choices">
+        <legend class="legend">Decision</legend>
+        <label class="choice"><input type="radio" name="decision" value="Proceed" /> Proceed</label>
+        <label class="choice"><input type="radio" name="decision" value="Ask" /> Ask</label>
+        <label class="choice"><input type="radio" name="decision" value="Hold" /> Hold</label>
+      </fieldset>
+      <p class="hint">Proceed is not a claim that the product is finished. It is a claim about this pass.</p>
+      <label>
+        <span>Why this decision</span>
+        <textarea name="why" rows="3"></textarea>
+      </label>
+      <div class="actions">
+        <button type="submit">Save in this browser</button>
+        <button type="button" class="secondary" id="example">Fill with an example</button>
+        <button type="button" class="secondary" id="copy-note">Copy note</button>
+        <button type="button" class="secondary" id="clear">Clear</button>
+      </div>
+      <p id="desk-status" class="status" role="status">Nothing is saved yet. The note stays on this computer.</p>
+    </form>
+
+    <aside class="sheet" aria-live="polite">
+      <p class="kicker">Composed note</p>
+      <h2>Practice note</h2>
+      <pre id="note"></pre>
+    </aside>
+  </div>
+
+  <p class="post-foot">
+    The method behind the page is the <a href={url('skills#release-judgment')}>release judgment</a> skill.
+    The five lines in the <a href={url('blog/the-notebook-before-the-suite')}>notebook note</a> are the shorter cousin of this page.
+  </p>
+  <noscript>
+    <p>Without JavaScript, copy these headings into your own notes: Change, What changed, Who it touches, Left for later, What I saw, What I still doubt, Decision, Why.</p>
+  </noscript>
+</Base>
+
+<script>
+  const STORAGE_KEY = 'vy-practice-desk-v1';
+  const form = document.querySelector<HTMLFormElement>('#desk-form');
+  const note = document.querySelector<HTMLElement>('#note');
+  const status = document.querySelector<HTMLElement>('#desk-status');
+  const fields = ['change', 'changed', 'who', 'later', 'saw', 'doubt', 'why'] as const;
+
+  const example: Record<(typeof fields)[number] | 'decision', string> = {
+    change: 'Save a card for later',
+    changed:
+      'A returning customer can store a card and choose it at the next checkout. The shop does not charge the card when it is saved.',
+    who: 'A customer with an account, and the support person who will be asked why a charge appeared.',
+    later: 'Expired cards, wallets, and more than one saved card.',
+    saw: 'Saving the card showed it on the account page after refresh. A payment request was not sent at save time.',
+    doubt: 'The ticket does not say what the customer sees if the saved card is declined later.',
+    why: 'The happy path is visible. The decline path is not stated, so I would not call the change ready.',
+    decision: 'Ask',
+  };
+
+  function valueOf(name: string) {
+    if (!form) return '';
+    const element = form.elements.namedItem(name);
+    if (element instanceof RadioNodeList) return element.value.trim();
+    if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) return element.value.trim();
+    return '';
+  }
+
+  function fill(name: string, fallback = 'Not filled') {
+    return valueOf(name) || fallback;
+  }
+
+  function compose() {
+    const decision = valueOf('decision') || 'Not chosen';
+    return [
+      'PRACTICE NOTE',
+      'Vikas Yadav · SuperIntelligence Quality Assurance',
+      '',
+      `Change: ${fill('change')}`,
+      `What changed: ${fill('changed')}`,
+      `Who it touches: ${fill('who')}`,
+      `Left for later: ${fill('later')}`,
+      `What I saw: ${fill('saw')}`,
+      `What I still doubt: ${fill('doubt')}`,
+      `Decision: ${decision}`,
+      `Why: ${fill('why')}`,
+    ].join('\n');
+  }
+
+  function render() {
+    if (note) note.textContent = compose();
+  }
+
+  function readForm(): Record<string, string> {
+    const data: Record<string, string> = {};
+    for (const name of fields) data[name] = valueOf(name);
+    data.decision = valueOf('decision');
+    return data;
+  }
+
+  function writeForm(data: Record<string, string>) {
+    if (!form) return;
+    for (const name of fields) {
+      const element = form.elements.namedItem(name);
+      if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+        element.value = data[name] ?? '';
+      }
+    }
+    const decision = form.elements.namedItem('decision');
+    if (decision instanceof RadioNodeList) decision.value = data.decision ?? '';
+  }
+
+  function say(message: string) {
+    if (status) status.textContent = message;
+  }
+
+  form?.addEventListener('input', render);
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(readForm()));
+      say('Saved in this browser. It is not sent anywhere.');
+    } catch {
+      say('This browser would not store the note. You can still copy it.');
+    }
+    render();
+  });
+
+  document.querySelector('#example')?.addEventListener('click', () => {
+    writeForm(example);
+    render();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(example));
+      say('Example loaded and saved in this browser. Replace it with your own change.');
+    } catch {
+      say('Example loaded. This browser would not store it.');
+    }
+  });
+
+  document.querySelector('#clear')?.addEventListener('click', () => {
+    form?.reset();
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* The visible note still clears. */
+    }
+    render();
+    say('Cleared on this browser.');
+  });
+
+  document.querySelector('#copy-note')?.addEventListener('click', async () => {
+    const text = compose();
+    try {
+      await navigator.clipboard.writeText(text);
+      say('Note copied.');
+    } catch {
+      if (note) {
+        const range = document.createRange();
+        range.selectNodeContents(note);
+        const selection = getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
+      say('Clipboard is unavailable. The note is selected so you can copy it.');
+    }
+  });
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      writeForm(JSON.parse(saved) as Record<string, string>);
+      say('Restored the note saved in this browser.');
+    }
+  } catch {
+    say('Nothing is saved yet. The note stays on this computer.');
+  }
+  render();
+</script>

@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { prompts } from '../../data/prompts';
+
+const steps = [
+  'Pick the prompt closest to the work already on your desk.',
+  'Copy it. Paste your own source underneath. Take out passwords, tokens, and personal data first.',
+  'Read the answer against the check under the prompt. Keep it, revise it, or throw it away.',
+];
+---
+
+<Base
+  title="Prompts"
+  description="Six starter prompts for reading a change, planning a session, describing a defect, judging a release, reviewing a model answer, and cutting a regression slice."
+>
+  <PageHead
+    kicker="Prompts"
+    title="A small starter, not a library."
+    lede="Six prompts to copy and adapt. They draft a shape. They do not decide that the shape is true. If the answer invents a rule, throw that part away."
+  />
+
+  <ol class="steps">
+    {steps.map((step) => <li>{step}</li>)}
+  </ol>
+
+  <nav class="contents" aria-label="Prompts">
+    {prompts.map((prompt) => <a href={`#${prompt.id}`}>{prompt.title}</a>)}
+  </nav>
+
+  {
+    prompts.map((prompt) => (
+      <article class="prompt" id={prompt.id}>
+        <div class="prompt-head">
+          <div>
+            <h2>{prompt.title}</h2>
+            <p class="meta-line">{prompt.intent}</p>
+            <p class="meta-line">Bring: {prompt.bring}</p>
+          </div>
+          <button type="button" data-copy={prompt.id}>
+            Copy prompt
+          </button>
+        </div>
+        <pre id={`${prompt.id}-text`}>{prompt.text}</pre>
+        <p class="check">
+          <strong>Check</strong>
+          <br />
+          {prompt.check}
+        </p>
+      </article>
+    ))
+  }
+  <p id="copy-status" class="status" role="status"></p>
+</Base>
+
+<script>
+  const status = document.querySelector('#copy-status');
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const id = button.dataset.copy;
+      const block = id ? document.getElementById(`${id}-text`) : null;
+      const text = block?.innerText ?? '';
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = 'Copied';
+        if (status) status.textContent = 'Copied. Paste it, then add your own source.';
+      } catch {
+        if (block) {
+          const range = document.createRange();
+          range.selectNodeContents(block);
+          const selection = getSelection();
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+        }
+        if (status) status.textContent = 'Clipboard is unavailable. The prompt is selected so you can copy it.';
+      }
+      window.setTimeout(() => {
+        button.textContent = 'Copy prompt';
+      }, 1600);
+    });
+  });
+</script>
