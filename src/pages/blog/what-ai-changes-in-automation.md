@@ -14,26 +14,28 @@ This series is my English reading of public Chinese writing on that work: cases 
 ## Two kinds of automation
 
 <figure class="figure">
-  <svg viewBox="0 0 640 250" role="img" aria-labelledby="twoTitle twoDesc">
+  <svg viewBox="0 0 360 520" role="img" aria-labelledby="twoTitle twoDesc">
     <title id="twoTitle">A script and an agent</title>
     <desc id="twoDesc">A normal script follows steps you wrote and checks a fact. An agent can draft, drive, or repair, but the same fact still decides pass or fail.</desc>
     <style>
-      .t { font: 15px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
-      .h { font: 600 12px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .h { font: 600 13px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <text class="h" x="16" y="24">SCRIPT YOU TRUST</text>
-    <rect class="box" x="16" y="40" width="250" height="40" rx="4"/><text class="t" x="28" y="66">Steps you wrote</text>
-    <rect class="box" x="16" y="90" width="250" height="40" rx="4"/><text class="t" x="28" y="116">Same data, same order</text>
-    <rect class="pine" x="16" y="140" width="250" height="40" rx="4"/><text class="t" x="28" y="166">A check that can fail</text>
-    <text class="h" x="340" y="24">AGENT BESIDE IT</text>
-    <rect class="clay" x="340" y="40" width="284" height="40" rx="4"/><text class="t" x="352" y="66">Draft the steps</text>
-    <rect class="clay" x="340" y="90" width="284" height="40" rx="4"/><text class="t" x="352" y="116">Drive the browser once</text>
-    <rect class="clay" x="340" y="140" width="284" height="40" rx="4"/><text class="t" x="352" y="166">Propose a new locator</text>
-    <text class="t" x="16" y="214">The agent may write or steer. The check still says pass or fail.</text>
-    <text class="t" x="16" y="236">If the agent can also edit the check, the suite can no longer surprise you.</text>
+    <text class="h" x="16" y="28">SCRIPT YOU TRUST</text>
+    <rect class="box" x="16" y="42" width="328" height="44" rx="4"/><text class="t" x="28" y="70">Steps you wrote</text>
+    <rect class="box" x="16" y="96" width="328" height="44" rx="4"/><text class="t" x="28" y="124">Same data, same order</text>
+    <rect class="pine" x="16" y="150" width="328" height="44" rx="4"/><text class="t" x="28" y="178">A check that can fail</text>
+    <text class="h" x="16" y="230">AGENT BESIDE IT</text>
+    <rect class="clay" x="16" y="244" width="328" height="44" rx="4"/><text class="t" x="28" y="272">Draft the steps</text>
+    <rect class="clay" x="16" y="298" width="328" height="44" rx="4"/><text class="t" x="28" y="326">Drive the browser once</text>
+    <rect class="clay" x="16" y="352" width="328" height="44" rx="4"/><text class="t" x="28" y="380">Propose a new locator</text>
+    <text class="t" x="16" y="430">The agent may write or steer.</text>
+    <text class="t" x="16" y="454">The check still says pass or fail.</text>
+    <text class="t" x="16" y="486">If the agent can edit the check,</text>
+    <text class="t" x="16" y="510">the suite can no longer surprise you.</text>
   </svg>
   <figcaption>
     Use an agent where the writing or the locator is the expensive part. Keep the check outside the agent’s reach when the fact is money, permission, or saved data.

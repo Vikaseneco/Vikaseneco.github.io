@@ -50,33 +50,22 @@ Do not:
 The “Check:” prefix is the whole trick. Public write-ups of this pattern treat a line that begins with “verify” or “assert” as a check, and every other line as an action. I like that, and I want it visible in English. If the check is buried in a paragraph, the agent will click through the story and call the run finished.
 
 <figure class="figure">
-  <svg viewBox="0 0 640 210" role="img" aria-labelledby="flowTitle flowDesc">
+  <svg viewBox="0 0 360 340" role="img" aria-labelledby="flowTitle flowDesc">
     <title id="flowTitle">From a readable case to a reviewed script</title>
     <desc id="flowDesc">A person writes the case. An agent looks, acts, and records a trace. A script is exported only after the rehearsal. A person reviews the checks before the script joins the suite.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <rect class="pine" x="12" y="70" width="130" height="64" rx="4"/>
-    <text class="t" x="24" y="96">1. Person writes</text>
-    <text class="t" x="24" y="116">the case</text>
-    <path d="M150 102 H168" stroke="#5c564c" fill="none"/><path d="M162 96 L170 102 L162 108" fill="#5c564c"/>
-    <rect class="clay" x="176" y="70" width="140" height="64" rx="4"/>
-    <text class="t" x="188" y="96">2. Agent looks</text>
-    <text class="t" x="188" y="116">then acts</text>
-    <path d="M324 102 H342" stroke="#5c564c" fill="none"/><path d="M336 96 L344 102 L336 108" fill="#5c564c"/>
-    <rect class="box" x="350" y="70" width="120" height="64" rx="4"/>
-    <text class="t" x="362" y="96">3. Trace</text>
-    <text class="t" x="362" y="116">and shots</text>
-    <path d="M478 102 H496" stroke="#5c564c" fill="none"/><path d="M490 96 L498 102 L490 108" fill="#5c564c"/>
-    <rect class="pine" x="504" y="36" width="124" height="132" rx="4"/>
-    <text class="t" x="516" y="64">4. Export a</text>
-    <text class="t" x="516" y="84">normal script</text>
-    <text class="t" x="516" y="112">5. Person</text>
-    <text class="t" x="516" y="132">reads the</text>
-    <text class="t" x="516" y="152">checks</text>
+    <rect class="pine" x="16" y="16" width="328" height="48" rx="4"/><text class="t" x="28" y="46">1. A person writes the case</text>
+    <rect class="clay" x="16" y="76" width="328" height="48" rx="4"/><text class="t" x="28" y="106">2. The agent looks, then acts</text>
+    <rect class="box" x="16" y="136" width="328" height="48" rx="4"/><text class="t" x="28" y="166">3. A trace and screenshots</text>
+    <rect class="box" x="16" y="196" width="328" height="48" rx="4"/><text class="t" x="28" y="226">4. Export a normal script</text>
+    <rect class="pine" x="16" y="256" width="328" height="64" rx="4"/>
+    <text class="t" x="28" y="282">5. A person reads the checks</text>
+    <text class="t" x="28" y="304">before the suite keeps it</text>
   </svg>
   <figcaption>
     The case is the source. The agent run is a rehearsal. The script enters the suite only after a person has read the checks.

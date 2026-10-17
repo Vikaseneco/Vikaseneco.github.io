@@ -14,32 +14,29 @@ If the case and the rehearsal are new, start with [write the case, then let a ru
 ## A repair is a diff with a fence
 
 <figure class="figure">
-  <svg viewBox="0 0 640 280" role="img" aria-labelledby="healTitle healDesc">
+  <svg viewBox="0 0 360 560" role="img" aria-labelledby="healTitle healDesc">
     <title id="healTitle">What a locator repair may change</title>
     <desc id="healDesc">A failed locator may be replaced with a new locator that matches the same intent. The check, the skipped state, and any payment step stay outside the repair.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
-      .h { font: 600 12px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
-      .box { fill: #fbf8f2; stroke: #d9d0c2; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .h { font: 600 13px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <text class="h" x="16" y="22">MAY CHANGE</text>
-    <rect class="pine" x="16" y="36" width="280" height="44" rx="4"/>
-    <text class="t" x="28" y="64">How the script finds the control</text>
-    <rect class="pine" x="16" y="90" width="280" height="44" rx="4"/>
-    <text class="t" x="28" y="118">A role, name, or label that matches</text>
-    <text class="h" x="340" y="22" style="fill:#7a3b2e">MUST NOT CHANGE</text>
-    <rect class="clay" x="340" y="36" width="284" height="36" rx="4"/>
-    <text class="t" x="352" y="60">The expected result</text>
-    <rect class="clay" x="340" y="80" width="284" height="36" rx="4"/>
-    <text class="t" x="352" y="104">Whether the test is skipped</text>
-    <rect class="clay" x="340" y="124" width="284" height="36" rx="4"/>
-    <text class="t" x="352" y="148">A pay, delete, or password step</text>
-    <text class="t" x="16" y="176">Intent: “the button that signs in”.</text>
-    <text class="t" x="16" y="200">Old: a css id that no longer exists.</text>
-    <text class="t" x="16" y="224">New: the button whose accessible name is Sign in.</text>
-    <text class="t" x="16" y="256">If the new locator is “the first button on the page”, reject it.</text>
+    <text class="h" x="16" y="28">MAY CHANGE</text>
+    <rect class="pine" x="16" y="42" width="328" height="48" rx="4"/>
+    <text class="t" x="28" y="72">How the script finds the control</text>
+    <rect class="pine" x="16" y="102" width="328" height="48" rx="4"/>
+    <text class="t" x="28" y="132">A role, name, or label</text>
+    <text class="h" x="16" y="186" style="fill:#7a3b2e">MUST NOT CHANGE</text>
+    <rect class="clay" x="16" y="200" width="328" height="44" rx="4"/><text class="t" x="28" y="228">The expected result</text>
+    <rect class="clay" x="16" y="254" width="328" height="44" rx="4"/><text class="t" x="28" y="282">Whether the test is skipped</text>
+    <rect class="clay" x="16" y="308" width="328" height="44" rx="4"/><text class="t" x="28" y="336">A pay, delete, or password step</text>
+    <text class="t" x="16" y="390">Intent: the button that signs in.</text>
+    <text class="t" x="16" y="418">Old: a css id that is gone.</text>
+    <text class="t" x="16" y="446">New: the button named Sign in.</text>
+    <text class="t" x="16" y="490">If the new locator is “the first</text>
+    <text class="t" x="16" y="514">button on the page”, reject it.</text>
   </svg>
   <figcaption>
     The intent stays in words. The locator may change. The check, the skip flag, and any dangerous step stay put.

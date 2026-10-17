@@ -7,6 +7,8 @@ const title = String(frontmatter.title);
 const description = String(frontmatter.description);
 const minutes = Number(frontmatter.minutes);
 const series = frontmatter.series ? String(frontmatter.series) : '';
+const dropcap = frontmatter.dropcap !== false;
+const toc = Array.isArray(frontmatter.toc) ? frontmatter.toc : [];
 ---
 
 <Base title={title} description={description} kind="article">
@@ -19,8 +21,21 @@ const series = frontmatter.series ? String(frontmatter.series) : '';
         <time datetime={new Date(frontmatter.date).toISOString().slice(0, 10)}>{formatDate(frontmatter.date)}</time>
         · {minutes} min read · Vikas Yadav
       </p>
+      {
+        toc.length > 0 && (
+          <nav class="toc" aria-label="On this page">
+            <ol>
+              {toc.map((item: { id: string; label: string }) => (
+                <li>
+                  <a href={`#${item.id}`}>{item.label}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )
+      }
     </header>
-    <div class="prose">
+    <div class:list={['prose', { 'no-dropcap': !dropcap }]}>
       <slot />
     </div>
     <p class="post-foot"><a href={url('blog')}>All notes</a></p>

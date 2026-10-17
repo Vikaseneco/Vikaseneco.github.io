@@ -198,7 +198,11 @@ h3 {
   grid-template-columns: minmax(0, 1.7fr) minmax(14rem, 0.85fr);
   gap: 2.5rem 3rem;
   align-items: end;
-  padding: 2.4rem 0 2.8rem;
+  padding: 2.4rem 0 2.2rem;
+}
+
+.opening h1 {
+  font-size: clamp(2.15rem, 4vw, 3.35rem);
 }
 
 .margin-note {
@@ -574,6 +578,16 @@ button.secondary:hover,
   color: var(--sienna);
 }
 
+.prose.no-dropcap > p:first-of-type::first-letter {
+  float: none;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0;
+  color: inherit;
+}
+
 .prose h2 {
   margin-top: 2.1rem;
   font-size: 1.75rem;
@@ -608,13 +622,12 @@ button.secondary:hover,
   background: var(--sheet);
   border: 1px solid var(--line);
   padding: 0.75rem 0.75rem 0.95rem;
-  overflow-x: auto;
 }
 
 .figure svg {
   display: block;
-  width: 640px;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -649,6 +662,42 @@ button.secondary:hover,
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--pine);
+}
+
+.toc {
+  margin: 1.15rem 0 0;
+}
+
+.toc ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc a {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--pine);
+}
+
+.fold {
+  margin: 0.4rem 0 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.fold summary {
+  cursor: pointer;
+  padding: 0.75rem 0;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--pine);
+}
+
+.fold summary:hover {
+  color: var(--sienna);
 }
 
 .learn-path {

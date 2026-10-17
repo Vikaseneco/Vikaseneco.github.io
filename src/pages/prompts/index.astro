@@ -36,18 +36,23 @@ const steps = [
             <h2>{prompt.title}</h2>
             <p class="meta-line">{prompt.intent}</p>
             <p class="scenario">{prompt.scenario}</p>
-            <p class="meta-line">Bring: {prompt.bring}</p>
           </div>
-          <button type="button" data-copy={prompt.id}>
-            Copy prompt
-          </button>
         </div>
-        <pre id={`${prompt.id}-text`}>{prompt.text}</pre>
         <p class="check">
           <strong>Check</strong>
           <br />
           {prompt.check}
         </p>
+        <details class="fold">
+          <summary>Show the prompt</summary>
+          <p class="meta-line">Bring: {prompt.bring}</p>
+          <div class="actions">
+            <button type="button" data-copy={prompt.id}>
+              Copy prompt
+            </button>
+          </div>
+          <pre id={`${prompt.id}-text`}>{prompt.text}</pre>
+        </details>
       </article>
     ))
   }

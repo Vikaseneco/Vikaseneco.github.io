@@ -5,13 +5,33 @@ description: "A plain-English map for a senior tester: the language model, why t
 date: "2026-10-17"
 minutes: 15
 series: "AI in test automation · for a senior reviewer"
+dropcap: false
+toc:
+  - id: model
+    label: The model
+  - id: hardness
+    label: Why it is hard
+  - id: harness
+    label: The harness
+  - id: tools
+    label: Open-source tools
+  - id: system-prompt
+    label: System prompt
+  - id: tool-names
+    label: Tool names
+  - id: conversation
+    label: Conversation
+  - id: free-space
+    label: Free space
+  - id: bots
+    label: Bots
 ---
 
 This note is for a senior engineer who will review AI inside a test suite. You do not need a new vocabulary before you can say yes or no. You need the parts, in order, and a picture of how a message becomes a click.
 
 The parts are the language model, the hardness of the work, the harness around the model, the open-source tools a team will actually install, the system prompt, the tool names and their details, the conversation, the free space left in that conversation, and the bot that ties them into a loop. Chinese writing on AI test automation uses these same parts, often under product names. The judgments below are mine. I do not ask you to adopt a product. I ask you to be able to point at each part in a review.
 
-## What an LLM is
+<h2 id="model">What an LLM is</h2>
 
 LLM means large language model. The useful picture is not “a brain that knows your product.” The useful picture is a program that, given the text so far, guesses the next piece of text. It was trained on a huge amount of writing. It is very good at continuing a pattern. It is not a database, and it does not look up your shop unless a tool does that look-up and puts the result back into the text.
 
@@ -19,7 +39,7 @@ That is why a model can write a test that looks finished and still be wrong. The
 
 A model call is one guess, or a short run of guesses, for one prompt. It does not remember yesterday unless the harness pastes yesterday back in. It does not click a browser unless the harness runs a tool the model named. When someone says “the model signed in,” they are compressing five parts into one word. Ask them to separate the parts.
 
-## Why the work is hard
+<h2 id="hardness">Why the work is hard</h2>
 
 People call this hardness. The hardness is not that the model is mysterious. The hardness is that several things can go wrong, and a green sentence hides which one it was.
 
@@ -35,35 +55,39 @@ People call this hardness. The hardness is not that the model is mysterious. The
 
 None of these is fixed by a larger model. A larger model writes a more fluent wrong answer. The review is still: which part failed, and which part is allowed to say pass.
 
-## The harness
+<h2 id="harness">The harness</h2>
 
 The harness is the program around the model. Engineers also say “agent framework” or “the shell.” I use harness because it names the job: it holds the model in place and gives it a way to act.
 
 <figure class="figure">
-  <svg viewBox="0 0 640 300" role="img" aria-labelledby="harnessTitle harnessDesc">
+  <svg viewBox="0 0 360 532" role="img" aria-labelledby="harnessTitle harnessDesc">
     <title id="harnessTitle">The model sits inside a harness</title>
     <desc id="harnessDesc">The harness holds the system prompt, the tool list, the conversation, and the free space. The model only sees text. The harness runs the tool the model names and writes the result back into the conversation.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
-      .h { font: 600 12px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .h { font: 600 13px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <rect class="box" x="16" y="28" width="608" height="250" rx="6"/>
-    <text class="h" x="32" y="52">HARNESS</text>
-    <rect class="clay" x="32" y="68" width="250" height="52" rx="4"/>
-    <text class="t" x="44" y="98">System prompt, every call</text>
-    <rect class="box" x="32" y="132" width="250" height="52" rx="4"/>
-    <text class="t" x="44" y="162">Tool list: names and details</text>
-    <rect class="box" x="32" y="196" width="250" height="52" rx="4"/>
-    <text class="t" x="44" y="226">Conversation so far</text>
-    <rect class="pine" x="320" y="100" width="280" height="88" rx="4"/>
-    <text class="t" x="336" y="132">The model</text>
-    <text class="t" x="336" y="156">sees text, guesses text</text>
-    <text class="t" x="336" y="176">does not touch the shop</text>
-    <text class="t" x="320" y="220">Free space is what still fits</text>
-    <text class="t" x="320" y="242">in the conversation window</text>
+    <rect class="box" x="8" y="8" width="344" height="516" rx="6"/>
+    <text class="h" x="20" y="36">HARNESS</text>
+    <rect class="clay" x="20" y="52" width="320" height="68" rx="4"/>
+    <text class="t" x="32" y="78">System prompt</text>
+    <text class="t" x="32" y="102">Sent with every call</text>
+    <rect class="box" x="20" y="132" width="320" height="68" rx="4"/>
+    <text class="t" x="32" y="158">Tool list</text>
+    <text class="t" x="32" y="182">Names and details</text>
+    <rect class="box" x="20" y="212" width="320" height="68" rx="4"/>
+    <text class="t" x="32" y="238">Conversation so far</text>
+    <text class="t" x="32" y="262">What was said and returned</text>
+    <rect class="pine" x="20" y="292" width="320" height="112" rx="4"/>
+    <text class="t" x="32" y="320">The model</text>
+    <text class="t" x="32" y="344">Sees text. Guesses text.</text>
+    <text class="t" x="32" y="368">Does not touch the shop.</text>
+    <rect class="box" x="20" y="416" width="320" height="88" rx="4"/>
+    <text class="t" x="32" y="448">Free space</text>
+    <text class="t" x="32" y="472">What still fits in the window</text>
   </svg>
   <figcaption>
     The model does not hold the rules, the tools, or the memory. The harness does. If a review cannot find the harness, the team is reviewing a chat box and calling it a test system.
@@ -79,7 +103,7 @@ A harness, at minimum, does four things.
 
 Playwright, by itself, is not a harness for a model. It is a library that clicks and checks. A harness is what decides to call Playwright because the model wrote “click Sign in.”
 
-## Open-source tools a senior will meet
+<h2 id="tools">Open-source tools a senior will meet</h2>
 
 You do not need every project. You need to know which program is the driver, which program is the model’s hands, and which program says pass.
 
@@ -93,7 +117,7 @@ You do not need every project. You need to know which program is the driver, whi
 
 I would not start a senior review by picking a winner among these. I would write three lines: which program drives the browser, which program calls the model, and which report is allowed to be red.
 
-## The system prompt
+<h2 id="system-prompt">The system prompt</h2>
 
 The system prompt is the standing instruction. It is not the case. The case is “sign Ada in and see her name.” The system prompt is “you are a test assistant; here is how you choose tools; here is the shape of your reply,” sent again on every call.
 
@@ -105,7 +129,7 @@ Read the prompt the way you would read a global test setup file. Underline anyth
 
 The [standing-instructions skill](../../skills/#system-prompt) is the short method. The [prompt](../../prompts/#system-prompt) is the starter you paste the real text into.
 
-## Tool names and tool details
+<h2 id="tool-names">Tool names and tool details</h2>
 
 A tool is a function the harness can run. The model does not run it. The model returns a name and arguments. The harness matches the name and runs the function.
 
@@ -118,28 +142,29 @@ Each tool the model is allowed to see has three details:
 **Arguments.** The fields the call must include. A click needs a target. A type needs a target and a text. An assert needs the fact, not a new fact the model prefers. If the argument list lets the model replace the expected name, the tool is not an assert. It is an editor.
 
 <figure class="figure">
-  <svg viewBox="0 0 640 230" role="img" aria-labelledby="toolTitle toolDesc">
+  <svg viewBox="0 0 360 480" role="img" aria-labelledby="toolTitle toolDesc">
     <title id="toolTitle">One tool, three details</title>
     <desc id="toolDesc">A tool has a name the model copies, a description the model reads, and arguments the harness will pass to the real function. The model proposes the call. The harness runs it.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
-      .h { font: 600 12px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .h { font: 600 13px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <text class="h" x="16" y="22">WHAT THE MODEL SEES</text>
-    <rect class="clay" x="16" y="36" width="280" height="150" rx="4"/>
-    <text class="t" x="28" y="64">Name: browser_click</text>
-    <text class="t" x="28" y="92">Description: click the</text>
-    <text class="t" x="28" y="114">control you were given</text>
-    <text class="t" x="28" y="146">Arguments: target</text>
-    <text class="h" x="330" y="22">WHAT THE HARNESS RUNS</text>
-    <rect class="pine" x="330" y="36" width="290" height="150" rx="4"/>
-    <text class="t" x="344" y="64">Match the name</text>
-    <text class="t" x="344" y="92">Refuse names not on the list</text>
-    <text class="t" x="344" y="120">Run the browser click</text>
-    <text class="t" x="344" y="148">Paste the result back as text</text>
+    <text class="h" x="16" y="28">WHAT THE MODEL SEES</text>
+    <rect class="clay" x="16" y="42" width="328" height="156" rx="4"/>
+    <text class="t" x="28" y="74">Name: browser_click</text>
+    <text class="t" x="28" y="106">Description: click the</text>
+    <text class="t" x="28" y="130">control you were given</text>
+    <text class="t" x="28" y="170">Arguments: target</text>
+    <text class="h" x="16" y="236">WHAT THE HARNESS RUNS</text>
+    <rect class="pine" x="16" y="250" width="328" height="200" rx="4"/>
+    <text class="t" x="28" y="282">Match the name</text>
+    <text class="t" x="28" y="314">Refuse names not on the list</text>
+    <text class="t" x="28" y="346">Run the browser click</text>
+    <text class="t" x="28" y="378">Paste the result</text>
+    <text class="t" x="28" y="402">back as text</text>
   </svg>
   <figcaption>
     Review the list the model sees, not only the functions in the repository. A function the model cannot name cannot be called. A function it can name will be called.
@@ -148,31 +173,36 @@ Each tool the model is allowed to see has three details:
 
 For a sign-in bot I would expect look, type, click, and assert. I would not expect `pay` or `delete_user` on that list, even if some other assistant in the company has them. Tools are not inherited by enthusiasm. The [tool-list skill](../../skills/#tool-list) walks that cut.
 
-## The conversation
+<h2 id="conversation">The conversation</h2>
 
 The conversation is the list of messages. Order is the memory. A typical turn looks like this.
 
 <figure class="figure">
-  <svg viewBox="0 0 640 280" role="img" aria-labelledby="turnTitle turnDesc">
+  <svg viewBox="0 0 360 484" role="img" aria-labelledby="turnTitle turnDesc">
     <title id="turnTitle">One turn of a test bot</title>
     <desc id="turnDesc">The person or the case speaks. The model answers with a tool name and arguments. The harness runs the tool. The tool result is appended. The model then writes the next step or a final sentence. The test runner, not the sentence, decides pass.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <rect class="box" x="16" y="16" width="608" height="36" rx="4"/>
-    <text class="t" x="28" y="40">1. System prompt is already attached, then the case: sign Ada in</text>
-    <rect class="clay" x="16" y="64" width="608" height="36" rx="4"/>
-    <text class="t" x="28" y="88">2. Model: call browser_snapshot, no arguments yet</text>
-    <rect class="pine" x="16" y="112" width="608" height="36" rx="4"/>
-    <text class="t" x="28" y="136">3. Harness runs it. Result: a button named Sign in is on the page</text>
-    <rect class="clay" x="16" y="160" width="608" height="36" rx="4"/>
-    <text class="t" x="28" y="184">4. Model: call browser_click with target Sign in</text>
-    <rect class="box" x="16" y="208" width="608" height="52" rx="4"/>
-    <text class="t" x="28" y="232">5. Later, expect(page).to have the name Ada</text>
-    <text class="t" x="28" y="252">That line is the runner. The model’s sentence “done” is not.</text>
+    <rect class="box" x="16" y="12" width="328" height="72" rx="4"/>
+    <text class="t" x="28" y="40">1. System prompt is attached</text>
+    <text class="t" x="28" y="64">then the case: sign Ada in</text>
+    <rect class="clay" x="16" y="96" width="328" height="72" rx="4"/>
+    <text class="t" x="28" y="124">2. Model: browser_snapshot</text>
+    <text class="t" x="28" y="148">no arguments yet</text>
+    <rect class="pine" x="16" y="180" width="328" height="72" rx="4"/>
+    <text class="t" x="28" y="208">3. Harness runs it. Result:</text>
+    <text class="t" x="28" y="232">a button named Sign in</text>
+    <rect class="clay" x="16" y="264" width="328" height="72" rx="4"/>
+    <text class="t" x="28" y="292">4. Model: browser_click</text>
+    <text class="t" x="28" y="316">with target Sign in</text>
+    <rect class="box" x="16" y="348" width="328" height="120" rx="4"/>
+    <text class="t" x="28" y="376">5. Later, expect the name Ada</text>
+    <text class="t" x="28" y="404">That line is the runner.</text>
+    <text class="t" x="28" y="432">The model’s “done” is not.</text>
   </svg>
   <figcaption>
     Read the trace from the top. The model proposes. The harness acts. The runner checks. If your log only has step 5’s sentence, you do not have a conversation. You have a claim.
@@ -191,7 +221,7 @@ Four roles show up in that list, and mixing them up is the usual review bug.
 
 When a healer “tries again,” it is appending to this list, not starting a fresh test. That is why turn 1 still matters, until something deletes it.
 
-## Free space
+<h2 id="free-space">Free space</h2>
 
 The conversation has a size limit, often called the context window. Free space is the room left in that window for the next message. Tool results are large. A snapshot of a page can be larger than the case. Screenshots described as text are large. After enough turns, free space is gone.
 
@@ -203,7 +233,7 @@ A replan limit is the other fence on free space. Midscene and similar agents let
 
 The [conversation skill](../../skills/#conversation-space) is how you write that down for one trace.
 
-## Bots
+<h2 id="bots">Bots</h2>
 
 A bot is a harness with a goal, running the loop until it stops. A test bot’s goal might be “follow this case” or “repair this locator” or “explain this log.” It is still a bot. Giving it three names, planner and generator and healer, does not make three oracles. It makes three loops that can write files.
 

@@ -14,30 +14,28 @@ I will not repeat those percentages as facts. They are claims about someone else
 ## Three jobs, one door
 
 <figure class="figure">
-  <svg viewBox="0 0 640 250" role="img" aria-labelledby="jobsTitle jobsDesc">
+  <svg viewBox="0 0 360 400" role="img" aria-labelledby="jobsTitle jobsDesc">
     <title id="jobsTitle">Three jobs and one first choice</title>
     <desc id="jobsDesc">Draft, run-and-repair, and explain are separate jobs. The first trial picks one. Run-and-repair is the usual first choice when a suite already exists. A person reviews the diff before anything is kept.</desc>
     <style>
-      .t { font: 14px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
-      .h { font: 600 12px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
+      .t { font: 16px "Figtree Variable", "Segoe UI", sans-serif; fill: #221e1a; }
+      .h { font: 600 13px "Figtree Variable", "Segoe UI", sans-serif; letter-spacing: 0.06em; fill: #1e463e; }
       .box { fill: #fbf8f2; stroke: #d9d0c2; }
       .pine { fill: #e7f0ee; stroke: #1e463e; }
       .clay { fill: #f6ebe6; stroke: #7a3b2e; }
     </style>
-    <rect class="box" x="16" y="36" width="180" height="70" rx="4"/>
-    <text class="t" x="28" y="64">Draft</text>
-    <text class="t" x="28" y="86">a case or script</text>
-    <rect class="pine" x="220" y="36" width="200" height="70" rx="4"/>
-    <text class="t" x="232" y="64">Run and repair</text>
-    <text class="t" x="232" y="86">a locator only</text>
-    <rect class="box" x="444" y="36" width="180" height="70" rx="4"/>
-    <text class="t" x="456" y="64">Explain</text>
-    <text class="t" x="456" y="86">a red run</text>
-    <text class="h" x="220" y="128">USUAL FIRST JOB</text>
-    <path d="M320 106 V148" stroke="#1e463e" fill="none"/><path d="M314 142 L320 150 L326 142" fill="#1e463e"/>
-    <rect class="clay" x="160" y="156" width="320" height="52" rx="4"/>
-    <text class="t" x="172" y="178">A person reads the diff</text>
-    <text class="t" x="172" y="198">before the suite keeps it</text>
+    <rect class="box" x="16" y="16" width="328" height="64" rx="4"/>
+    <text class="t" x="28" y="42">Draft</text>
+    <text class="t" x="28" y="64">a case or a script</text>
+    <rect class="pine" x="16" y="92" width="328" height="64" rx="4"/>
+    <text class="t" x="28" y="118">Run and repair</text>
+    <text class="t" x="28" y="140">a locator only · usual first job</text>
+    <rect class="box" x="16" y="168" width="328" height="64" rx="4"/>
+    <text class="t" x="28" y="194">Explain</text>
+    <text class="t" x="28" y="216">a red run</text>
+    <rect class="clay" x="16" y="260" width="328" height="72" rx="4"/>
+    <text class="t" x="28" y="290">A person reads the diff</text>
+    <text class="t" x="28" y="314">before the suite keeps it</text>
   </svg>
   <figcaption>
     Pick one box for the trial. If you already have a suite, run-and-repair is the job with a clear forbidden edit. The person at the bottom is not optional.

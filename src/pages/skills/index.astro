@@ -27,21 +27,24 @@ import { url } from '../../lib/url';
             <p>{skill.summary}</p>
             <h3>A real situation</h3>
             <p class="scenario">{skill.scenario}</p>
-            <h3>When</h3>
-            <p>{skill.when}</p>
-            <h3>Bring</h3>
-            <ul>
-              {skill.bring.map((item) => <li>{item}</li>)}
-            </ul>
-            <h3>Do</h3>
-            <ol>
-              {skill.steps.map((step) => <li>{step}</li>)}
-            </ol>
-            <h3>Leave with</h3>
-            <ul>
-              {skill.leave.map((item) => <li>{item}</li>)}
-            </ul>
-            <p class="caution">{skill.caution}</p>
+            <details class="fold">
+              <summary>Show the steps</summary>
+              <h3>When</h3>
+              <p>{skill.when}</p>
+              <h3>Bring</h3>
+              <ul>
+                {skill.bring.map((item) => <li>{item}</li>)}
+              </ul>
+              <h3>Do</h3>
+              <ol>
+                {skill.steps.map((step) => <li>{step}</li>)}
+              </ol>
+              <h3>Leave with</h3>
+              <ul>
+                {skill.leave.map((item) => <li>{item}</li>)}
+              </ul>
+              <p class="caution">{skill.caution}</p>
+            </details>
             <p class="post-foot">
               {skill.prompt && <a href={url(`prompts#${skill.prompt}`)}>Related prompt</a>}
               {skill.prompt && skill.desk && ' · '}
