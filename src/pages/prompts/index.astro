@@ -12,12 +12,12 @@ const steps = [
 
 <Base
   title="Prompts"
-  description="Starter prompts for AI in test automation: a failed run, a plain-language case, a locator repair, a generated script, a first job, and a pilot."
+  description="Starter prompts for AI in test automation, each tied to a real situation: a broken sign-in, a system prompt, a tool list, a full conversation, and a bot fence."
 >
   <PageHead
     kicker="Prompts"
     title="A small starter, not a library."
-    lede="Prompts to copy and adapt. They draft a case, a repair note, or a pilot decision. They do not decide that the draft is true. If the answer invents a rule, throw that part away."
+    lede="Each prompt names a situation first, then the text you copy. Paste your own trace under it. The prompt drafts a note. It does not decide that the note is true."
   />
 
   <ol class="steps">
@@ -35,6 +35,7 @@ const steps = [
           <div>
             <h2>{prompt.title}</h2>
             <p class="meta-line">{prompt.intent}</p>
+            <p class="scenario">{prompt.scenario}</p>
             <p class="meta-line">Bring: {prompt.bring}</p>
           </div>
           <button type="button" data-copy={prompt.id}>

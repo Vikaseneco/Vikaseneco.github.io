@@ -4,6 +4,7 @@ import { url } from '../lib/url';
 const routes = [
   '',
   'blog',
+  'blog/the-model-the-harness-and-the-bot',
   'blog/what-ai-changes-in-automation',
   'blog/write-the-case-then-run-it',
   'blog/repair-the-locator-not-the-rule',

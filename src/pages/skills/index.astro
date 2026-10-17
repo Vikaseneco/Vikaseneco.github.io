@@ -7,12 +7,12 @@ import { url } from '../../lib/url';
 
 <Base
   title="QA skills"
-  description="Methods for AI in test automation: sort a failure, write a plain-language case, review a locator repair, audit a generated script, and judge a pilot."
+  description="Methods for AI in test automation, each opened with a real situation: a failed sign-in, a system prompt, a tool list, a long conversation, and a bot that must not say pass."
 >
   <PageHead
     kicker="QA skills"
     title="Methods you can finish."
-    lede="A skill here is a short method for one automation task. Bring the trace or the case, follow the steps, and leave with a note a teammate can read. If the source is silent, write that down."
+    lede="Each method starts from a situation a team actually hits: a red sign-in, a healer that edits the check, a system prompt that prefers success, a tool list with pay on it, or a conversation that is about to forget the rule. The map of the model and the harness is in the senior lesson."
   />
 
   <div class="layout">
@@ -25,6 +25,8 @@ import { url } from '../../lib/url';
           <article class="skill" id={skill.id}>
             <h2>{skill.title}</h2>
             <p>{skill.summary}</p>
+            <h3>A real situation</h3>
+            <p class="scenario">{skill.scenario}</p>
             <h3>When</h3>
             <p>{skill.when}</p>
             <h3>Bring</h3>

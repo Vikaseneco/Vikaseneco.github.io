@@ -20,7 +20,7 @@ const notes = Object.values(import.meta.glob<NoteModule>('./*.md', { eager: true
 
 <Base
   title="Blog"
-  description="Plain-English lessons on AI in test automation: what an agent may change, how to write a case, how to repair a locator, and how to judge a pilot."
+  description="Plain-English lessons on AI in test automation, including a senior map of the model, the harness, tools, and the conversation."
 >
   <PageHead
     kicker="Blog"
@@ -30,9 +30,12 @@ const notes = Object.values(import.meta.glob<NoteModule>('./*.md', { eager: true
   <section class="learn-path" aria-labelledby="learn-heading">
     <h2 id="learn-heading">Read in this order</h2>
     <p>
-      Start with the boundary, then the case, then the locator repair, then the pilot. Each note has a diagram and a short practice with the answer on the page.
+      If you are the senior person who will review the bots, start with the map of the model, the harness, the tools, and the conversation. Then read the four working notes. Each one has a diagram.
     </p>
     <ol class="steps">
+      <li>
+        <a href={url('blog/the-model-the-harness-and-the-bot')}>The model, the harness, and the bot</a>
+      </li>
       <li>
         <a href={url('blog/what-ai-changes-in-automation')}>What AI changes in test automation</a>
       </li>
