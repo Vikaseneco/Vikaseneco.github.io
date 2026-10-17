@@ -36,6 +36,15 @@ export const projects: Project[] = [
     link: 'Read the note',
   },
   {
+    name: 'Chain lessons',
+    year: '2026',
+    kind: 'Lessons',
+    summary:
+      'Three notes in plain English on a tool-calling chain: the loop, the wrong path behind a right sentence, and a scripted brain that does not pretend to be a live model. Each one has a diagram and a practice.',
+    href: 'blog/a-chain-is-a-loop',
+    link: 'Start the lessons',
+  },
+  {
     name: 'Margin decision',
     year: '2026',
     kind: 'Format',

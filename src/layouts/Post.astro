@@ -6,12 +6,13 @@ const { frontmatter } = Astro.props;
 const title = String(frontmatter.title);
 const description = String(frontmatter.description);
 const minutes = Number(frontmatter.minutes);
+const series = frontmatter.series ? String(frontmatter.series) : '';
 ---
 
 <Base title={title} description={description} kind="article">
   <article>
     <header class="page-head">
-      <p class="kicker">Field note</p>
+      <p class="kicker">{series || 'Field note'}</p>
       <h1>{title}</h1>
       <p class="lede">{description}</p>
       <p class="post-meta">

@@ -114,4 +114,26 @@ export const skills: Skill[] = [
     caution: 'A short list is not a weak list. A long list that nobody can connect to the change is the weaker one.',
     prompt: 'regression-slice',
   },
+  {
+    id: 'chain-review',
+    title: 'Chain review',
+    summary: 'Read a tool-calling loop by its path, and keep the final sentence in second place.',
+    when: 'An assistant used tools, and someone is about to trust the last sentence.',
+    bring: [
+      'The job the customer asked for.',
+      'The trace: each tool name, the words passed in, and the words that came back.',
+      'The rule that must pass before the shop, the money, or the record changes.',
+    ],
+    steps: [
+      'Write the job in one sentence a customer could follow.',
+      'Copy the path as a short signature. Keep errors in the signature. Do not collapse a retry into the happy steps.',
+      'Mark the gate: the check that had to happen before a change. If the trace has no gate, say so.',
+      'Mark any step that needed a value from an earlier step. Say whether that value was actually passed.',
+      'Say what this run may claim. A scripted brain proves the loop obeyed the script. It does not prove a live model would choose it.',
+    ],
+    leave: ['A path note a teammate can read without opening the log, plus the claim you are willing to make.'],
+    caution:
+      'Do not fail a run only because two independent lookups swapped order. Do fail it when a change happened before its guard, or when the sentence claims a change the trace does not show.',
+    prompt: 'chain-review',
+  },
 ];

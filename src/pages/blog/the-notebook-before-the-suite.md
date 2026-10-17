@@ -3,7 +3,7 @@ layout: ../../layouts/Post.astro
 title: The notebook before the suite
 description: Five lines to write before a suite, a model, or a tool decides what a change means.
 date: "2026-03-12"
-minutes: 4
+minutes: 5
 ---
 
 Four hundred automated checks can be green while nobody in the room can say what the last change was for. The release note says “minor fixes.” The suite agrees. The conversation does not.
@@ -53,3 +53,5 @@ I keep the page next to the work, not in a separate archive. When the session en
 Five lines will not hold a large program. They are the wrong shape for a yearly plan, a compliance map, or a performance study. They are the right shape for the change on the desk today. There is a [blank practice page](../../desk/) for writing them, and a later note on [what to do when a model sounds sure](../fluency-is-not-coverage/).
 
 Write the lines before you open the suite. If you cannot, stop there. That is already something worth saying.
+
+The same five lines change shape when the work is a tool-calling chain. The “change” is the job the assistant was asked to do. “Who it touches” includes the tool that can move money or delete a record. “I will not test” names the live model if you only ran a script. A chain can print a tidy sentence after doing the wrong jobs, so the evidence line has to point at the trace, not only at the sentence. That lesson is written out, with diagrams, in [a chain is a loop](../a-chain-is-a-loop/).

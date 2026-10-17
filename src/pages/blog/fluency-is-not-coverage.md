@@ -3,7 +3,7 @@ layout: ../../layouts/Post.astro
 title: Fluency is not coverage
 description: A way to mark model-written tests so a smooth list is not mistaken for coverage.
 date: "2026-06-02"
-minutes: 3
+minutes: 4
 ---
 
 Ask a model for tests of a password reset and it may return a dozen cases with identifiers, priorities, and expected results. The list will use the right nouns: token, expiry, reused link, unknown address. It will look like a suite someone has already reviewed.
@@ -37,3 +37,5 @@ The next day, borrowed items can stay if a person still wants them. Invented ite
 I keep the model’s list in the note, marks and all. I do not paste unmarked cases into a repository. The [review prompt](../../prompts/#model-answer-audit) is a starter for that pass. The habit beside it is older than the prompt, and it sits next to the [five lines](../the-notebook-before-the-suite/) I want written first.
 
 Mark grounded, borrowed, or invented. Demand an oracle. Ask a person before a guessed rule becomes a script. The model can hold the pen. It should not be the one that decides the list is complete.
+
+A fluent final sentence has the same problem as a fluent test list. Two chains can both say “I removed the unused card” while only one of them checked the rule first. The sentence is easy to read. The path is the coverage. [A correct sentence can hide a wrong path](../a-correct-sentence-can-hide-a-wrong-path/) shows the two traces side by side.

@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
-import { formatDate } from '../../lib/url';
+import { formatDate, url } from '../../lib/url';
 
 type NoteModule = {
   url: string;
@@ -20,13 +20,30 @@ const notes = Object.values(import.meta.glob<NoteModule>('./*.md', { eager: true
 
 <Base
   title="Blog"
-  description="Notes on writing a change down before the tools, and on reading model-written tests without mistaking fluency for coverage."
+  description="Plain-English lessons on tool-calling chains, with diagrams, plus notes on reading a change and marking a model answer."
 >
   <PageHead
     kicker="Blog"
     title="Field notes"
-    lede="Short essays from the desk. They are about reading a change carefully before a suite, a script, or a model gets to decide what it means."
+    lede="Lessons in plain English. The chain series explains tool-calling loops with diagrams and a shop story. The earlier notes are the habits underneath them."
   />
+  <section class="learn-path" aria-labelledby="learn-heading">
+    <h2 id="learn-heading">Read the chain in this order</h2>
+    <p>
+      Public writing on tool-call chains is often dense, and much of it is not in English. These three notes retell the idea in simple words, then add a judgment of my own: what to keep, what not to treat as a bug, and what a green run is allowed to claim.
+    </p>
+    <ol class="steps">
+      <li>
+        <a href={url('blog/a-chain-is-a-loop')}>A chain is a loop, not one answer</a>
+      </li>
+      <li>
+        <a href={url('blog/a-correct-sentence-can-hide-a-wrong-path')}>A correct sentence can hide a wrong path</a>
+      </li>
+      <li>
+        <a href={url('blog/freeze-the-brain-watch-the-hands')}>Freeze the brain and watch the hands</a>
+      </li>
+    </ol>
+  </section>
   <ul class="note-list">
     {
       notes.map((note) => (

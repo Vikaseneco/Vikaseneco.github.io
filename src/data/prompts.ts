@@ -197,4 +197,45 @@ One sentence on what this slice does not prove.
 
 Prefer fewer checks with a clear oracle over a long list.`,
   },
+  {
+    id: 'chain-review',
+    title: 'Review a tool chain',
+    intent: 'Turn a tool trace into a path note a person can learn from.',
+    bring: 'The customer’s request, the trace, and any rule you already trust.',
+    check: 'The note shows the path before the sentence. A scripted run is not described as a live model. Missing rules stay “Not in source”.',
+    text: `You are helping a person review one tool-calling chain. Use only the source below. If a fact is not in the source, write "Not in source". Do not invent tools, ids, limits, or policy rules.
+
+A chain is a loop: decide, use a tool, read the result, decide again. The final sentence is a claim. The trace is the evidence.
+
+SOURCE:
+[paste the customer's request, the trace of tool calls, and any rule you already trust]
+
+Say whether this run used a scripted brain, a saved reply, or a live model. If that is not in the source, write "Not in source".
+
+Answer in this shape:
+
+Job
+One sentence a customer could follow.
+
+Path
+The steps in order. Keep errors. Do not hide a failed try.
+
+Gate
+The check that had to pass before data or money changed. Quote it, or write "No gate in the trace".
+
+Values that had to be passed
+For each later step that needed an earlier result, say what was passed. If the tool received the customer's raw sentence instead of an id, say so.
+
+Order that can swap
+Lookups that do not feed each other and do not change anything. Do not call those a defect.
+
+Claim you may make
+One or two sentences. A scripted run may say the loop obeyed the script. It may not say the assistant understands the customer.
+
+Claim you must not make
+The sentence in the trace that goes beyond the path.
+
+Question for a person
+One question that should be answered before anyone calls this chain safe.`,
+  },
 ];

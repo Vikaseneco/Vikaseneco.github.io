@@ -4,6 +4,9 @@ import { url } from '../lib/url';
 const routes = [
   '',
   'blog',
+  'blog/a-chain-is-a-loop',
+  'blog/a-correct-sentence-can-hide-a-wrong-path',
+  'blog/freeze-the-brain-watch-the-hands',
   'blog/the-notebook-before-the-suite',
   'blog/fluency-is-not-coverage',
   'prompts',

@@ -49,4 +49,11 @@ export const tasks: Task[] = [
     href: 'skills#regression-slice',
     label: 'Open skill',
   },
+  {
+    n: '07',
+    title: 'Review a tool chain',
+    line: 'Write the path the assistant took, not only the last sentence.',
+    href: 'skills#chain-review',
+    label: 'Open skill',
+  },
 ];
